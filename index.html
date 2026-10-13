@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Who's Next, Doc?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Noto+Sans+Thai+Looped:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-heart" viewBox="0 0 24 24">
+      <path
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    </symbol>
+    <symbol id="i-cross" viewBox="0 0 24 24">
+      <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" />
+    </symbol>
+  </svg>
+
+  <div class="wrap">
+    <header class="top">
+      <div class="logo"><svg class="i">
+          <use href="#i-cross" />
+        </svg></div>
+      <h1>Who's Next, <em>Doc?</em></h1>
+      <svg class="ecg" viewBox="0 0 400 38" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points="0,20 120,20 140,20 152,4 166,34 178,20 260,20 280,20 292,8 304,30 314,20 400,20" />
+      </svg>
+    </header>
+    <p class="sub">คุณคือพยาบาลหัวหน้าเวร หมอถามว่า "คนต่อไปคือใคร?" ช่วยจัดคิวให้ผู้ป่วยรอน้อยที่สุด</p>
+
+    <!-- ===================== หน้าเมนู ===================== -->
+
+    <section id="menu" class="card">
+      <h2>วิธีเล่น</h2>
+      <div class="steps">
+        <div class="step"><b>1. ดูคิวผู้ป่วย</b>การ์ดแต่ละใบคือผู้ป่วยหนึ่งคน คิวตอนนี้ยังเรียงไม่ถูก
+          ต้องจัดให้คนที่ควรเข้าตรวจก่อนอยู่หน้าสุด</div>
+        <div class="step"><b>2. เลือกวิธีจัดคิว</b>มี 4 วิธี (Bubble, Selection, Insertion, Merge) เลือกได้วันละครั้ง
+          แล้วดูมันทำงานทีละขั้น</div>
+        <div class="step"><b>3. ทุกขั้นมีค่าใช้จ่าย</b>การเปรียบเทียบหรือย้ายคนแต่ละครั้งใช้เวลา 1 นาที
+          ระหว่างนั้นทุกคนที่รออยู่ต้องรอเพิ่ม</div>
+        <div class="step"><b>4. ส่งคิวให้หมอ</b>ถ้าเวลาจัดคิวไม่เกินเกณฑ์ ผ่านวัน ถ้าเกินเสียหัวใจ 1 ดวง</div>
+      </div>
+      <div class="rule"><b>กติกาแพ้ชนะ:</b> มีหัวใจ 3 ดวง ผ่านครบ 3 วันคือชนะและได้เกรด ถ้าหัวใจหมดก่อนคือแพ้
+        คะแนนแต่ละวันเต็ม 100 เทียบกับวิธีที่ดีที่สุดของวันนั้น (ลองวันเดิมซ้ำหักครั้งละ 10)</div>
+      <div class="rule"><b>ไม่มีวิธีที่ดีที่สุดเสมอไป:</b> แต่ละวันคิวมีสภาพต่างกัน ดูสภาพคิวแล้วเลือกให้เหมาะ</div>
+      <div class="row">
+        <button class="pri" id="startBtn">เริ่มเวร</button>
+        <button id="cheatBtn">ตารางสรุป Algorithm</button>
+        <span class="sub" id="bestTxt" style="margin:0"></span>
+      </div>
+    </section>
+
+    <!-- ===================== หน้าเล่น ===================== -->
+     
+    <section id="game" hidden>
+      <div class="stats" id="stats"></div>
+      <div class="scene er" id="scene"></div>
+      <div class="legend" id="legend"></div>
+      <div class="queue" id="queue" aria-label="คิวผู้ป่วย"></div>
+      <div class="counters" id="counters"></div>
+      <div class="msg" id="msg" role="status"></div>
+      <h3 style="margin-top:0">เลือกวิธีจัดคิว (เลือกได้ครั้งเดียวต่อวัน)</h3>
+      <div class="picker" id="picker"></div>
+      <div class="row">
+        <button class="pri" id="sendBtn" hidden>ส่งคิวให้หมอ</button>
+        <label>ความเร็ว <select id="speed">
+            <option value="slow">ช้า</option>
+            <option value="normal" selected>ปกติ</option>
+            <option value="fast">เร็ว</option>
+          </select></label>
+        <button id="skipBtn" hidden>ข้ามไปให้จบ</button>
+        <button id="cheat2">ตารางสรุป</button>
+        <button id="menuBtn">เมนู</button>
+      </div>
+    </section>
+    <dialog id="dlg">
+      <div id="dbody"></div>
+    </dialog>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
